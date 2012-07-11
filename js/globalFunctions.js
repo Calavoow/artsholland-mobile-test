@@ -1,0 +1,23 @@
+function isset(object){
+    return typeof object != 'undefined';
+}
+
+function stripHtml(unfilteredString){
+    //Filter the HTML tags from the shortDescr's.
+    var div = document.createElement("div");
+    div.innerHTML = unfilteredString;
+    return div.textContent || div.innerText || "";
+}
+
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
