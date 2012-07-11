@@ -2,12 +2,12 @@ ArtsHolland-Mobile-test
 =======================
 
 A test mobile application for the Arts Holland platform of Waag Society.
-It used jQeury, jQeuryMobile and Apache Phonegap (Cordova).
+It uses [jQuery](http://jquery.com/), [jQueryMobile](http://jquerymobile.com/) and [Apache Phonegap (Cordova)](http://phonegap.com/).
 
 ###Required Files
-For this application to work you will need an ArtsHolland API key.
-You can get one at http://dev.artsholland.com
-When you have an API-key, there are 2 files that need to be created:
+For this application to work you will need an ArtsHolland API key. You can get one
+at http://dev.artsholland.com. When you have an API-key, there are 2 files that
+need to be created:
 ```
 key.php
 js/key.js
