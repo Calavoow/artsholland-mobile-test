@@ -1,5 +1,5 @@
-function isset(object){
-    return typeof object != 'undefined';
+function isset(argument){
+    return argument != 'undefined';
 }
 
 function stripHtml(unfilteredString){

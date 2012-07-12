@@ -13,10 +13,12 @@
         <script type="text/javascript" src="leaflet/leaflet-src.js"></script>        
         <script type="text/javascript" src="js/globalFunctions.js"></script>
         <script type="text/javascript" src="js/key.js"></script>
+        <script type="text/javascript" src="js/venuesLoader.js"></script>
+        <script type="text/javascript" src="js/venueDetailLoader.js"></script>
+        <script type="text/javascript" src="js/javascriptloader.js"></script>
     </head>
     <body>
-        <div data-role="page">
-            <script type="text/javascript">pageUnloader();</script>
+        <div id="index" data-role="page">
             <div data-role="header" data-position="fixed">
                 <h1>Arts Holland Tester</h1>
             </div><!-- /header -->
@@ -24,10 +26,19 @@
             <div data-role="content">
                 <ul data-role="listview">
                     <li><a href="venues.html">Venues</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="#about">About</a></li>
                 </ul>
             </div><!-- /content -->
-
         </div><!-- /page -->
+        <div id="about" data-role="page">
+            <div data-role="header" data-position="fixed">
+                <a data-rel="back" data-icon="arrow-l">Back</a>
+                <h1>About</h1>
+            </div><!-- /header -->
+
+            <div data-role="content">
+                <p>Application about.</p>
+            </div>
+        </div>
     </body>
 </html>

@@ -4,20 +4,21 @@
         <title>Arts Holland Venues</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.css" />
-        <link rel="stylesheet" href="leaflet/leaflet.css" />        
+        <link rel="stylesheet" href="leaflet/leaflet.css" />
         <link rel="stylesheet" href="css/customMarkup.css" />
         <script type="text/javascript" charset="utf-8" src="js/lib/cordova-1.9.0.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/lib/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="js/javascriptInit.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/lib/jquery.mobile-1.1.0.js"></script>
-        <script type="text/javascript" src="leaflet/leaflet-src.js"></script>        
+        <script type="text/javascript" src="leaflet/leaflet-src.js"></script>
         <script type="text/javascript" src="js/globalFunctions.js"></script>
         <script type="text/javascript" src="js/key.js"></script>
+        <script type="text/javascript" src="js/venuesLoader.js"></script>
+        <script type="text/javascript" src="js/venueDetailLoader.js"></script>
+        <script type="text/javascript" src="js/javascriptloader.js"></script>
     </head>
     <body>
-        <div data-role="page">
-            <script type="text/javascript">pageUnloader();</script>
-            <script type="text/javascript" src="js/venuesLoader.js"></script>
+        <div id="venues" data-role="page" data-dom-cache="true">
             <div data-role="header" data-position="fixed">
                 <a data-rel="back" data-icon="arrow-l">Back</a>
                 <h1>Venues</h1>

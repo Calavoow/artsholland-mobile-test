@@ -1,19 +1,8 @@
-$(document).on("pageshow", function pageshow(){
-    console.log("Veneu details");
-    console.log(JSON.stringify(getUrlVars()));
-    getVenueDetails(getUrlVars()["cidn"]);
-    pageUnloader = function(){
-        console.log("Details deleted");
-        $(document).off("pageshow",pageshow);
-    }
-});
-
 var map;
-
 function getVenueDetails(cidn){
     console.log(cidn);
     $.mobile.showLoadMsg = true;
-    $.getJSON("http://localhost/ArtsHollandMobile/server.php",
+    $.getJSON("http://10.0.135.119/ArtsHollandMobile/server.php",
     {
         "apiKey": artsHollandAPIKey,
         "lang": "nl",
@@ -27,26 +16,26 @@ function getVenueDetails(cidn){
         var contentHtml = '';
         
         var description;
-        if(isset(venueDetails["description"])){
+        if(isset( typeof venueDetails["description"])){
             description = venueDetails["description"];            
         } else {
             description = venueDetails["shortDescription"];
         }        
-        if(isset(description)){
+        if(isset( typeof description)){
             addContentPane("Description", prepareTextContent(description), "venueDetailsDescription");
         //            contentHtml += '<div data-role="fieldcontain"><p>' + stripHtml(description) + '</p></div>';
         }
         
         var openingHours = venueDetails["openingHours"];
-        if(isset(openingHours)){
+        if(isset( typeof openingHours)){
             addContentPane("Opening Hours", prepareTextContent(openingHours), "venueDetailsOpeningHours");
         }
         
         var latitude = venueDetails["lat"];
         var longitude = venueDetails["long"];
-        if( isset(latitude) && isset(longitude)){
+        if( isset( typeof latitude) && isset( typeof longitude)){
             console.log(latitude + ' long: ' + longitude );
-            var mapHtml = '<div style="width:80; height:400px;" id="leafletMap"></div>'
+            var mapHtml = '<div style="width:100%; height:400px" id="leafletMap"></div>'
             addContentPane("Map", mapHtml, "venueDetailsMap");
             map = new L.Map('leafletMap');
             
@@ -68,7 +57,7 @@ function getVenueDetails(cidn){
             
         }
         var attachment = venueDetails["attachment"];
-        if(isset(attachment)){
+        if(isset( typeof attachment)){
             
         }
         $("#detailedVenueNavbar").parent("div").navbar();
