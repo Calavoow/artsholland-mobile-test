@@ -1,9 +1,22 @@
+var currentPageId;
+
 $(document).on('pagebeforeshow', function(event){
-    var pageId = $(event.target).attr("id");
-    switch(pageId){
-        case "venues": loadVenues(); break;
-        case "venueDetails": loadVenueDetails(); break;
-        default: break;
+    currentPageId = $(event.target).attr("id");
+    switch(currentPageId){
+        case "venues":
+            loadVenues();
+            break;
+        case "venueDetails":
+            loadVenueDetails();
+            break;
+        case "browseMap":
+            loadBrowseMap();
+            break;
+        case "searchVenues":
+            loadSearchVenues();
+            break;
+        default:
+            break;
     }
 });
 
@@ -18,8 +31,7 @@ function loadVenues(){
         $(window).on("scrollstop", updateVenues);
         
         $(document).on("pagebeforeshow", function pagebeforeshow(event){
-            console.log("Veneus deleted")
-            console.log($(this));
+            console.log("Venues deleted")
             $(document).off('pageshow', pageshow);
             $(window).off("scrollstart", updateVenues);
             $(window).off("scrollstop", updateVenues);
@@ -31,11 +43,50 @@ function loadVenues(){
 function loadVenueDetails(){
     $(document).on("pageshow", function pageshow(){
         console.log("Venue details");
-        getVenueDetails(getUrlVars()["cidn"]);
+        venueDetails.loadCidn(getUrlVars()["cidn"]);
         $(document).on("pagebeforeshow", function pagebeforeshow(event){
             console.log("Details deleted");
             $(document).off("pageshow",pageshow);
             $(document).off("pagebeforeshow", pagebeforeshow);
-        })
+        });
     });
+}
+
+function loadBrowseMap(){
+    $(document).on("pageshow", function pageshow(){
+        console.log("Browse Map");
+        if(typeof browseMap === "undefined"){
+            loadMap();
+        }
+        $("#browseRange").on("change", function(event){
+            refreshBrowseCircle();
+        })
+        $("#browseRange").on("vmouseup", function(event){
+            refreshNearbyLocations();
+        });
+        $("#browseRange").next().on("vmouseup", 'a', function(event){
+            refreshNearbyLocations();
+        });
+        $(document).on("pagebeforeshow", function pagebeforeshow(event){
+            console.log("BrowseMap deleted");
+            $(document).off("pageshow",pageshow);
+            $(document).off("pagebeforeshow", pagebeforeshow);
+        });
+    })
+}
+
+function loadSearchVenues(){
+    $(document).on("pageshow", function pageshow(){
+        $("#searchVenueList").prev().on("keyup",function(){
+            updateSearchVenues();
+        });
+        $("#searchVenueList").listview('option', 'filterCallback', function(text, searchValue){
+            return text.toLowerCase().indexOf( searchValue ) === -1;
+        });
+        $(document).on("pagebeforeshow", function pagebeforeshow(event){
+            console.log("searchVenues deleted");
+            $(document).off("pageshow",pageshow);
+            $(document).off("pagebeforeshow", pagebeforeshow);
+        });
+    })
 }

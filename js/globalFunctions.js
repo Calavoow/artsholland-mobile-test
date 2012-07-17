@@ -21,3 +21,13 @@ function getUrlVars()
     }
     return vars;
 }
+
+function isAtBottom(){
+    var body = document.body
+    var html = document.documentElement;
+
+    var totalHeight = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+    return (totalHeight-1000 <= $(window).height() + $(window).scrollTop() );
+}

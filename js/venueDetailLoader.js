@@ -1,62 +1,71 @@
 var map;
-function getVenueDetails(cidn){
+var venueDetails = {};
+
+venueDetails.loadCidn = function(cidn){
     console.log(cidn);
     $.mobile.showLoadMsg = true;
-    $.getJSON("http://10.0.135.119/ArtsHollandMobile/server.php",
+    $.getJSON("http://localhost/ArtsHollandMobile/server.php",
     {
         "apiKey": artsHollandAPIKey,
         "lang": "nl",
         "cidn": cidn
     }, function(data){
-        venueDetails = data["results"][0];
+        venueResults = data["results"][0];
         
-        var title2 = venueDetails["title"];
+        var title2 = venueResults["title"];
         console.log(title2);
         $("#detailedVenuetitle").html(title2);
-        var contentHtml = '';
         
         var description;
-        if(isset( typeof venueDetails["description"])){
-            description = venueDetails["description"];            
+        if(isset( typeof venueResults["description"])){
+            description = venueResults["description"];
         } else {
-            description = venueDetails["shortDescription"];
+            description = venueResults["shortDescription"];
         }        
         if(isset( typeof description)){
-            addContentPane("Description", prepareTextContent(description), "venueDetailsDescription");
+            venueDetails.addContentPane("Description", venueDetails.prepareTextContent(description), "venueDetailsDescription");
         //            contentHtml += '<div data-role="fieldcontain"><p>' + stripHtml(description) + '</p></div>';
         }
         
-        var openingHours = venueDetails["openingHours"];
+        var openingHours = venueResults["openingHours"];
         if(isset( typeof openingHours)){
-            addContentPane("Opening Hours", prepareTextContent(openingHours), "venueDetailsOpeningHours");
+            venueDetails.addContentPane("Opening Hours", venueDetails.prepareTextContent(openingHours), "venueDetailsOpeningHours");
+        }
+
+        var homepage = venueResults["homepage"];
+        if( isset( typeof homepage)){
+            var linkHtml = '<a href="'+homepage+'" rel="external">'+homepage+'</a>';
+            venueDetails.addContentPane("Website", linkHtml, "venueDetailsHomepage");
         }
         
-        var latitude = venueDetails["lat"];
-        var longitude = venueDetails["long"];
+        var latitude = venueResults["lat"];
+        var longitude = venueResults["long"];
         if( isset( typeof latitude) && isset( typeof longitude)){
             console.log(latitude + ' long: ' + longitude );
-            var mapHtml = '<div style="width:100%; height:400px" id="leafletMap"></div>'
-            addContentPane("Map", mapHtml, "venueDetailsMap");
+            var mapHeight = $(window).height() -107;
+            var mapHtml = '<div style="height:'+mapHeight+'px;" id="leafletMap"></div>'
+            venueDetails.addContentPane("Map", mapHtml, "venueDetailsMap");
             map = new L.Map('leafletMap');
             
             // create the tile layer with correct attribution
             var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
             var osmAttrib='Map data © OpenStreetMap contributors';
             var osm = new L.TileLayer(osmUrl, {
-                minZoom: 8, 
-                maxZoom: 18, 
+                minZoom: 6,
+//                maxZoom: 18,
                 attribution: osmAttrib
             });		
 
-            // start the map in South-East England
-            map.setView(new L.LatLng(latitude, longitude),12);
-            map.addLayer(osm);
+            // start the map at the location of the Venue
             var latlng = new L.LatLng(latitude, longitude);
+            map.setView(latlng,12);
+            map.addLayer(osm);
+            
             var marker = new L.Marker(latlng);
             map.addLayer(marker);
             
         }
-        var attachment = venueDetails["attachment"];
+        var attachment = venueResults["attachment"];
         if(isset( typeof attachment)){
             
         }
@@ -65,24 +74,24 @@ function getVenueDetails(cidn){
         $("#"+$("#detailedVenueNavbar").children("li").first().children("a").first().addClass('ui-btn-active').attr('contentPane-href')).show();
         
         $("#detailedVenueNavbar").on('tap', 'a',  function(event){
-            navBarActivate($(this));
+            venueDetails.navBarActivate($(this));
         })
     }).always(function(){
         $.mobile.showLoadMsg = false;
     });
-}
+};
 
-function addContentPane(title, data, id){
+venueDetails.addContentPane = function(title, data, id){
     $("#detailedVenueNavbar").append("<li><a contentPane-href="+id+'>'+title+'</a></li>');
     $("#detailedVenueContent").append('<div id="'+id+'" class="contentPane">' + data + '</div>');
-}
+};
 
-function prepareTextContent(content){
+venueDetails.prepareTextContent = function(content){
     return "<p>" + stripHtml(content) + '</p>';
-}
+};
 
-function navBarActivate(anchor){
+venueDetails.navBarActivate = function(anchor){
     $(".contentPane").hide();
     $("#"+anchor.attr('contentPane-href')).show();
     map.invalidateSize();
-}
+};

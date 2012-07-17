@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
     <head>
-        <title>Venue Details</title>
+        <title>Arts Holland</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/jquery.mobile-1.1.1.css" />
         <link rel="stylesheet" href="leaflet/leaflet.css" />
@@ -20,16 +20,15 @@
         <script type="text/javascript" src="js/javascriptloader.js"></script>
     </head>
     <body>
-        <div id="venueDetails" data-role="page">
-            <div data-role="header" >
+        <div id="searchVenues" data-role="page">
+            <div data-role="header" data-position="fixed">
                 <a data-rel="back" data-icon="arrow-l">Back</a>
-                <h1 id="detailedVenuetitle"></h1>
-            </div>
-            <div>
-                <ul id="detailedVenueNavbar"></ul>
-            </div>
-            <div id="detailedVenueContent" data-role="content">
-            </div>
-        </div>
+                <h1>Search Venues</h1>
+            </div><!-- /header -->
+
+            <div data-role="content">
+                <ul id="searchVenueList" data-role="listview" data-filter="true"></ul>
+            </div><!-- /content -->
+        </div><!-- /page -->
     </body>
 </html>

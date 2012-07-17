@@ -1,7 +1,3 @@
-var pageUnloader = function(){
-    return;
-};
-
 /*
  * Needs to initialize before jQueryMobile is loaded.
  */
