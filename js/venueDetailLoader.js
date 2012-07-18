@@ -10,11 +10,12 @@ venueDetails.loadCidn = function(cidn){
         "lang": "nl",
         "cidn": cidn
     }, function(data){
+        console.log($("#detailedVenueTitle"));
         venueResults = data["results"][0];
         
         var title2 = venueResults["title"];
         console.log(title2);
-        $("#detailedVenuetitle").html(title2);
+        $("#detailedVenueTitle").html(title2);
         
         var description;
         if(isset( typeof venueResults["description"])){
@@ -34,7 +35,7 @@ venueDetails.loadCidn = function(cidn){
 
         var homepage = venueResults["homepage"];
         if( isset( typeof homepage)){
-            var linkHtml = '<a href="'+homepage+'" rel="external">'+homepage+'</a>';
+            var linkHtml = '<a href="'+homepage+'" target="_blank">'+homepage+'</a>';
             venueDetails.addContentPane("Website", linkHtml, "venueDetailsHomepage");
         }
         
@@ -77,7 +78,7 @@ venueDetails.loadCidn = function(cidn){
             venueDetails.navBarActivate($(this));
         })
     }).always(function(){
-        $.mobile.showLoadMsg = false;
+        console.log("AJAX request in venueDetail complete");
     });
 };
 
