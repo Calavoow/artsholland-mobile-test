@@ -76,7 +76,7 @@ function addNearbyLocations(latlng, range, page){
 
             var title = value["title"];
             var cidn = value["cidn"];
-            var popupText = '<h4>'+ title +'</h4><p><a onclick="showDetails(\''+cidn+'\')">More info</a></p>';
+            var popupText = '<h4>'+ title +'</h4><p><a href="venuedetails.html?cidn='+cidn+'">More info</a></p>';
             marker.bindPopup(popupText);
             distanceLayers.addLayer(marker);
 
