@@ -2,7 +2,7 @@ var currentPageId;
 
 $(document).on('pagebeforeshow', function(event){
     currentPageId = $(event.target).attr("id");
-    switch(currentPageId){
+    switch (currentPageId) {
         case "venues":
             loadVenues();
             break;

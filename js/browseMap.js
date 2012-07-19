@@ -9,7 +9,9 @@ var browseUpdating = false;
 function loadMap(){
     console.log("Loading map");
     var mapHeight = $(window).height() - $('div[data-role="header"]').outerHeight()
-    -$('#browseRangeContainer').outerHeight() - 2*parseInt($("#browseMapContent").css("padding"));
+    - $('#browseRangeContainer').outerHeight()
+    - parseInt($("#browseMapContent").css("padding-top"))
+    - parseInt($("#browseMapContent").css("padding-bottom"));
     $('#browseLeafletMap').css("height", mapHeight);
     console.log($('#browseLeafletMap').height());
     browseMap = new L.Map('browseLeafletMap');
